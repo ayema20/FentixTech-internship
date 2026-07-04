@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catchhub</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:linear-gradient(to bottom,#f5f5f5,#ffffff);
+    overflow-x:hidden;
+    position:relative;
+}
+
+
+.bg-shape{
+    position:absolute;
+    background:white;
+    border-radius:50%;
+    z-index:-1;
+    box-shadow:0 0 100px rgba(0,0,0,.04);
+}
+
+.shape1{
+    width:900px;
+    height:350px;
+    right:-250px;
+    top:100px;
+}
+
+.shape2{
+    width:1000px;
+    height:450px;
+    left:-300px;
+    top:900px;
+}
+
+.shape3{
+    width:1000px;
+    height:500px;
+    right:-300px;
+    bottom:250px;
+}
+
+section{
+    padding:80px 8%;
+}
+
+.container{
+    max-width:1400px;
+    margin:auto;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:60px;
+}
+
+.logo{
+    width:260px;
+}
+
+.hero-text h2{
+    letter-spacing:5px;
+    margin-top:20px;
+    font-size:22px;
+    color:#222;
+}
+
+.hero-text p{
+    color:#777;
+    margin-top:10px;
+    font-size:18px;
+}
+
+.store{
+    margin-top:25px;
+}
+
+.store img{
+    height:55px;
+    margin-right:10px;
+    transition:.3s;
+    cursor:pointer;
+}
+
+.store img:hover{
+    transform:translateY(-4px);
+}
+
+.hero-screen{
+    width:600px;
+    filter:drop-shadow(0 15px 25px rgba(0,0,0,.15));
+}
+
+
+.feature{
+    padding:120px 8%;
+}
+
+.feature img{
+    max-width:500px;
+    filter:drop-shadow(0 15px 25px rgba(0,0,0,.15));
+}
+
+.feature h2{
+    letter-spacing:8px;
+    font-size:32px;
+    font-weight:300;
+    color:#222;
+    margin-bottom:20px;
+}
+
+.feature p{
+    font-size:22px;
+    color:#777;
+    line-height:1.6;
+    max-width:500px;
+}
+
+.future-icons{
+    text-align:center;
+    margin:30px 0;
+}
+
+.future-icons img{
+    width:500px;
+    opacity:.35;
+}
+
+/* Footer */
+
+footer{
+    text-align:center;
+    padding:80px 20px;
+}
+
+footer h3{
+    font-weight:normal;
+    margin-bottom:20px;
+}
+
+.contact{
+    margin-top:25px;
+    color:#555;
+    font-size:18px;
+}
+
+.contact span{
+    color:#55a9ff;
+}
+
+.peratude{
+    width:70px;
+    margin-top:25px;
+}
+
+
+@media(max-width:900px){
+
+.row{
+    flex-direction:column;
+    text-align:center;
+}
+
+.hero-screen{
+    width:100%;
+    max-width:500px;
+}
+
+.feature img{
+    width:100%;
+    max-width:350px;
+}
+
+.feature p{
+    font-size:18px;
+    margin:auto;
+}
+
+.logo{
+    width:180px;
+}
+
+.future-icons img{
+    width:90%;
+}
+}
+
+</style>
+</head>
+<body>
+
+<div class="bg-shape shape1"></div>
+<div class="bg-shape shape2"></div>
+<div class="bg-shape shape3"></div>
+
+
+<section>
+<div class="container">
+<div class="row">
+
+<div class="hero-text">
+
+<img src="logo.png" class="logo">
+
+<h2>WATCH. COMMUNICATE. CREATE.</h2>
+
+<p>Everything you need to socialise</p>
+
+<div class="store">
+<img src="play_store.png" alt="">
+<img src="app_store.png" alt="">
+</div>
+
+</div>
+
+<div>
+<img src="top_screens.png" class="hero-screen">
+</div>
+
+</div>
+</div>
+</section>
+
+
+<section class="feature">
+
+<div class="container">
+
+<div class="row">
+
+<img src="sec_screens.png">
+
+<div>
+
+<h2>CHANNELS</h2>
+
+<p>
+Enjoy the videos and music you love <br>
+Create your own business
+or entertainment channel.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="feature">
+
+<div class="container">
+
+<div class="row">
+
+<div>
+
+<h2>MESSAGES</h2>
+
+<p>
+Communicate seamlessly.
+Create your own professional
+or social group chat
+</p>
+
+</div>
+
+<img src="thhh_screens.png">
+
+</div>
+
+</div>
+
+</section>
+
+
+<div class="future-icons">
+<img src="vectors.png">
+</div>
+
+
+
+<section class="feature">
+
+<div class="container">
+
+<div class="row">
+
+<img src="for_screens.png">
+
+<div>
+
+<h2>IN FUTURE</h2>
+
+<p>
+Communicate seamlessly.
+Create your own professional
+or social group chat
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<h3>For download click here:</h3>
+
+<div class="store">
+<img src="play_store.png">
+<img src="app_store.png">
+</div>
+
+<div class="contact">
+Any questions? Feel free to
+<span>CONTACT US</span>
+</div>
+
+<img src="peratude.png" class="peratude">
+
+</footer>
+
+</body>
+</html>
