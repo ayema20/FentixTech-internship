@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catalog-Z Clone</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#fff;
+}
+
+.container{
+    width:90%;
+    margin:auto;
+}
+
+
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:25px 5%;
+    background:#fff;
+    box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#7c3aed;
+    font-size:40px;
+}
+
+.logo span{
+    font-size:18px;
+    font-weight:600;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:40px;
+}
+
+nav ul li a{
+    text-decoration:none;
+    color:#666;
+    font-size:18px;
+    transition:.3s;
+}
+
+nav ul li a:hover{
+    color:#7c3aed;
+}
+
+/* HERO */
+
+.hero{
+    height:400px;
+    background:url("images/hero.jpg") center center/cover no-repeat;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.search-box{
+    display:flex;
+}
+
+.search-box input{
+    width:500px;
+    padding:18px;
+    border:none;
+    font-size:18px;
+    outline:none;
+}
+
+.search-box button{
+    width:90px;
+    border:none;
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+    background:linear-gradient(135deg,#7c3aed,#a855f7);
+}
+
+/* SECTION */
+
+.section-title{
+    margin:60px 0 40px;
+    font-size:42px;
+    color:#7c3aed;
+}
+
+/* GALLERY */
+
+.gallery{
+    display:flex;
+    flex-wrap:wrap;
+    gap:30px;
+}
+
+.card{
+    width:calc(25% - 23px);
+}
+
+.card img{
+    width:100%;
+    height:240px;
+    object-fit:cover;
+    transition:.4s;
+}
+
+.card img:hover{
+    transform:scale(1.03);
+}
+
+.info{
+    display:flex;
+    justify-content:space-between;
+    margin-top:12px;
+    color:#888;
+    font-size:15px;
+}
+
+/* PAGINATION */
+
+.pagination{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:80px 0;
+}
+
+.page-btn{
+    background:#8b5cf6;
+    color:white;
+    border:none;
+    padding:18px 40px;
+    font-size:18px;
+    border-radius:4px;
+    cursor:pointer;
+}
+
+.numbers{
+    display:flex;
+    gap:15px;
+}
+
+.num{
+    width:60px;
+    height:60px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#f2f2f2;
+    color:#777;
+    font-size:20px;
+}
+
+.active{
+    background:#7c3aed;
+    color:white;
+}
+
+/* FOOTER */
+
+footer{
+    background:#f5f3ff;
+    padding:70px 0;
+}
+
+.footer-content{
+    display:flex;
+    justify-content:space-between;
+    gap:50px;
+}
+
+.footer-box{
+    flex:1;
+}
+
+.footer-box h3{
+    color:#7c3aed;
+    margin-bottom:20px;
+    font-size:30px;
+}
+
+.footer-box p{
+    color:#666;
+    line-height:1.8;
+}
+
+.footer-box ul{
+    list-style:none;
+}
+
+.footer-box ul li{
+    margin-bottom:15px;
+}
+
+.footer-box ul li a{
+    text-decoration:none;
+    color:#666;
+}
+
+.social{
+    display:flex;
+    gap:15px;
+}
+
+.social a{
+    width:50px;
+    height:50px;
+    background:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    color:#7c3aed;
+    font-size:20px;
+    transition:.3s;
+}
+
+.social a:hover{
+    background:#7c3aed;
+    color:white;
+}
+
+.copyright{
+    text-align:center;
+    margin-top:50px;
+    color:#666;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:992px){
+
+.card{
+    width:calc(50% - 15px);
+}
+
+.footer-content{
+    flex-direction:column;
+}
+
+}
+
+@media(max-width:768px){
+
+nav{
+    flex-direction:column;
+    gap:20px;
+}
+
+nav ul{
+    gap:20px;
+}
+
+.search-box input{
+    width:250px;
+}
+
+.card{
+    width:100%;
+}
+
+.pagination{
+    flex-direction:column;
+    gap:20px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<nav>
+
+<div class="logo">
+<i class="fa-solid fa-film"></i>
+<span>Catalog-Z</span>
+</div>
+
+<ul>
+<li><a href="#">Photos</a></li>
+<li><a href="#">Videos</a></li>
+<li><a href="#">About</a></li>
+<li><a href="#">Contact</a></li>
+</ul>
+
+</nav>
+
+<section class="hero">
+
+<div class="search-box">
+<input type="text" placeholder="Search">
+<button>
+<i class="fa-solid fa-magnifying-glass"></i>
+</button>
+</div>
+
+</section>
+
+
+<div class="container">
+
+<h2 class="section-title">Latest Photos</h2>
+
+<div class="gallery">
+
+<div class="card">
+<img src="images/img-01.jpg">
+<div class="info">
+<span>18 Oct 2020</span>
+<span>9,906 Views</span>
+</div>
+</div>
+
+<div class="card">
+<img src="images/img-02.jpg">
+<div class="info">
+<span>14 Oct 2020</span>
+<span>16,100 Views</span>
+</div>
+</div>
+
+<div class="card">
+<img src="images/img-03.jpg">
+<div class="info">
+<span>12 Oct 2020</span>
+<span>12,460 Views</span>
+</div>
+</div>
+
+<div class="card">
+<img src="images/img-04.jpg">
+<div class="info">
+<span>10 Oct 2020</span>
+<span>11,402 Views</span>
+</div>
+</div>
+
+<div class="card">
+<img src="images/img-05.jpg">
+<div class="info">
+<span>8 Oct 2020</span>
+<span>20,000 Views</span>
+</div>
+</div>
+
+<div class="card">
+<img src="images/img-06.jpg">
+<div class="info">
+<span>6 Oct 2020</span>
+<span>22,100 Views</span>
+</div>
+</div>
+
+<div class="card">
+<img src="images/img-07.jpg">
+<div class="info">
+<span>4 Oct 2020</span>
+<span>18,500 Views</span>
+</div>
+</div>
+
+<div class="card">
+<img src="images/img-08.jpg">
+<div class="info">
+<span>1 Oct 2020</span>
+<span>13,800 Views</span>
+</div>
+</div>
+
+</div>
+
+
+<div class="pagination">
+
+<button class="page-btn">Previous</button>
+
+<div class="numbers">
+<div class="num active">1</div>
+<div class="num">2</div>
+<div class="num">3</div>
+<div class="num">4</div>
+</div>
+
+<button class="page-btn">Next Page</button>
+
+</div>
+
+</div>
+
+<footer>
+
+<div class="container">
+
+<div class="footer-content">
+
+<div class="footer-box">
+<h3>About Catalog-Z</h3>
+<p>
+Catalog-Z is free Bootstrap template for photo and video websites.
+You can freely use this layout for any CMS integration.
+</p>
+</div>
+
+<div class="footer-box">
+<h3>Our Links</h3>
+<ul>
+<li><a href="#">Advertise</a></li>
+<li><a href="#">Support</a></li>
+<li><a href="#">Our Company</a></li>
+<li><a href="#">Contact</a></li>
+</ul>
+</div>
+
+<div class="footer-box">
+<h3>Follow Us</h3>
+
+<div class="social">
+<a href="#"><i class="fab fa-facebook-f"></i></a>
+<a href="#"><i class="fab fa-twitter"></i></a>
+<a href="#"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fab fa-pinterest"></i></a>
+</div>
+
+</div>
+
+</div>
+
+<div class="copyright">
+Copyright © 2020 Catalog-Z Company
+</div>
+
+</div>
+
+</footer>
+
+</body>
+</html>
