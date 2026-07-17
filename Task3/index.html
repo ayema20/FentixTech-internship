@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instagram UI Clone</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f4f4;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    display:flex;
+    gap:40px;
+    flex-wrap:wrap;
+    justify-content:center;
+    padding:20px;
+}
+
+.phone{
+    width:300px;
+    height:620px;
+    background:#fff;
+    border:10px solid #111;
+    border-radius:30px;
+    overflow:hidden;
+    box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+/* ---------- PROFILE SCREEN ---------- */
+
+.profile-header{
+    display:flex;
+    padding:15px;
+    gap:15px;
+    align-items:center;
+}
+
+.profile-pic{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    background:linear-gradient(45deg,#ff9a9e,#fad0c4);
+}
+
+.stats{
+    flex:1;
+    display:flex;
+    justify-content:space-around;
+    text-align:center;
+}
+
+.stats h3{
+    font-size:16px;
+}
+
+.bio{
+    padding:0 15px;
+    font-size:14px;
+}
+
+.edit-btn{
+    margin:10px 15px;
+    border:1px solid #ccc;
+    text-align:center;
+    padding:8px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.highlights{
+    display:flex;
+    gap:10px;
+    padding:10px;
+    overflow-x:auto;
+}
+
+.story{
+    min-width:60px;
+    text-align:center;
+}
+
+.story-circle{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    background:linear-gradient(45deg,#ff9a9e,#fad0c4);
+    margin:auto;
+}
+
+.posts-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:2px;
+}
+
+.post{
+    height:90px;
+    background:linear-gradient(45deg,#ffb6c1,#d291ff);
+}
+
+/* ---------- HOME SCREEN ---------- */
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px;
+    font-weight:bold;
+}
+
+.stories{
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+    padding:10px;
+}
+
+.story-feed{
+    min-width:60px;
+}
+
+.story-feed div{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    background:linear-gradient(45deg,#ffb6c1,#ff8ad8);
+}
+
+.feed-post{
+    padding:10px;
+}
+
+.feed-image{
+    height:260px;
+    background:linear-gradient(45deg,#ffb6c1,#d291ff);
+    border-radius:10px;
+}
+
+.actions{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0;
+    font-size:20px;
+}
+
+
+.search{
+    padding:15px;
+}
+
+.search input{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    background:#eee;
+}
+
+.categories{
+    display:flex;
+    gap:8px;
+    padding:0 15px 10px;
+    overflow-x:auto;
+}
+
+.categories span{
+    border:1px solid #ccc;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+.explore-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    grid-auto-rows:90px;
+    gap:3px;
+    padding:5px;
+}
+
+.explore-grid div{
+    background:linear-gradient(45deg,#ffb6c1,#d291ff);
+}
+
+.big{
+    grid-column:span 2;
+    grid-row:span 2;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- PROFILE SCREEN -->
+    <div class="phone">
+
+        <div class="profile-header">
+            <div class="profile-pic"></div>
+
+            <div class="stats">
+                <div>
+                    <h3>120</h3>
+                    <p>Posts</p>
+                </div>
+
+                <div>
+                    <h3>5K</h3>
+                    <p>Followers</p>
+                </div>
+
+                <div>
+                    <h3>800</h3>
+                    <p>Following</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bio">
+            <strong>Ayema</strong><br>
+            Frontend Developer
+        </div>
+
+        <div class="edit-btn">
+            Edit Profile
+        </div>
+
+        <div class="highlights">
+            <div class="story">
+                <div class="story-circle"></div>
+            </div>
+
+            <div class="story">
+                <div class="story-circle"></div>
+            </div>
+
+            <div class="story">
+                <div class="story-circle"></div>
+            </div>
+
+            <div class="story">
+                <div class="story-circle"></div>
+            </div>
+        </div>
+
+        <div class="posts-grid">
+            <div class="post"></div>
+            <div class="post"></div>
+            <div class="post"></div>
+            <div class="post"></div>
+            <div class="post"></div>
+            <div class="post"></div>
+            <div class="post"></div>
+            <div class="post"></div>
+            <div class="post"></div>
+        </div>
+
+    </div>
+
+    <!-- HOME SCREEN -->
+    <div class="phone">
+
+        <div class="navbar">
+            <span>Instagram</span>
+            <span>❤ ✉</span>
+        </div>
+
+        <div class="stories">
+            <div class="story-feed"><div></div></div>
+            <div class="story-feed"><div></div></div>
+            <div class="story-feed"><div></div></div>
+            <div class="story-feed"><div></div></div>
+            <div class="story-feed"><div></div></div>
+        </div>
+
+        <div class="feed-post">
+            <div class="feed-image"></div>
+
+            <div class="actions">
+                <span>❤ 💬 ✈</span>
+                <span>🔖</span>
+            </div>
+
+            <p><b>1,250 likes</b></p>
+            <p><b>Ayema</b> Beautiful day 🌸</p>
+        </div>
+
+    </div>
+    <div class="phone">
+
+        <div class="search">
+            <input type="text" placeholder="Search">
+        </div>
+
+        <div class="categories">
+            <span>Travel</span>
+            <span>Food</span>
+            <span>Tech</span>
+            <span>Art</span>
+        </div>
+
+        <div class="explore-grid">
+
+            <div class="big"></div>
+            <div></div>
+
+            <div></div>
+            <div></div>
+
+            <div></div>
+            <div></div>
+
+            <div></div>
+            <div></div>
+
+            <div></div>
+            <div></div>
+
+            <div></div>
+            <div></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
