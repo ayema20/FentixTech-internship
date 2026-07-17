@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Winter Gallery</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Montserrat',sans-serif;
+    background:#f8fbfd;
+}
+
+nav{
+    background:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:25px 70px;
+
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+}
+.logo{
+    font-size:42px;
+    color:#6d8094;
+    font-family:'Cormorant Garamond',serif;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:40px;
+}
+
+nav ul li a{
+    text-decoration:none;
+    color:#7d8ea3;
+    letter-spacing:2px;
+    font-size:14px;
+}
+
+
+.hero{
+    height:80vh;
+    background:
+    linear-gradient(rgba(240,248,255,.75),
+    rgba(240,248,255,.75)),
+    url('https://images.unsplash.com/photo-1511497584788-876760111969?w=1600');
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero-content h1{
+    font-size:90px;
+    font-family:'Cormorant Garamond',serif;
+    color:#5e7388;
+    font-weight:300;
+}
+
+.hero-content p{
+    margin-top:20px;
+    letter-spacing:5px;
+    color:#88a3be;
+    font-size:20px;
+}
+
+/* SNOW */
+
+.snow{
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    pointer-events:none;
+}
+
+.snow span{
+    position:absolute;
+    top:-20px;
+    color:white;
+    animation:snowfall linear infinite;
+    opacity:.8;
+}
+
+@keyframes snowfall{
+    0%{
+        transform:translateY(-20px);
+    }
+    100%{
+        transform:translateY(100vh);
+    }
+}
+
+/* FILTER MENU */
+
+.category-menu{
+    text-align:center;
+    padding:35px;
+    background:white;
+}
+
+.category-menu button{
+    border:none;
+    background:none;
+    margin:0 20px;
+    font-size:18px;
+    letter-spacing:2px;
+    color:#7089a3;
+    cursor:pointer;
+    padding-bottom:8px;
+}
+
+.category-menu button.active{
+    border-bottom:2px solid #7ca8d2;
+}
+
+/* GALLERY */
+
+.gallery{
+    max-width:1300px;
+    margin:auto;
+    padding:50px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+}
+
+.gallery-item{
+    overflow:hidden;
+}
+
+.gallery-item img{
+    width:100%;
+    height:300px;
+    object-fit:cover;
+    transition:.5s;
+}
+
+.gallery-item:hover img{
+    transform:scale(1.08);
+}
+
+.hide{
+    display:none;
+}
+
+@media(max-width:768px){
+
+.hero-content h1{
+    font-size:55px;
+}
+
+.category-menu button{
+    display:block;
+    margin:12px auto;
+}
+}
+.about-section{
+    background:#f4f9fc;
+    padding:70px 8%;
+}
+
+.about-container{
+    max-width:1000px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1fr 420px;
+    gap:60px;
+    align-items:start;
+}
+.about-title{
+    text-align:center;
+    font-family:'Cormorant Garamond', serif;
+    font-size:72px;
+    font-weight:300;
+    color:#5f7387;
+    margin-bottom:60px;
+    display:block;
+    width:100%;
+}
+
+.about-text p{
+    font-size:15px;
+    line-height:1.9;
+    color:#73889e;
+    margin-bottom:25px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+    margin-top:15px;
+}
+
+.stat-box{
+    background:white;
+    border:1px solid #dce7f1;
+    padding:25px 15px; 
+    text-align:center;
+}
+
+.stat-box h2{
+    font-size:38px; 
+    margin-bottom:10px;
+    color:#8aa9c6;
+}
+
+.stat-box span{
+    font-size:12px;
+    letter-spacing:2px;
+    color:#8a99a9;
+}
+.about-right{
+    width:420px;
+}
+
+.about-right img{
+    width:420px;
+    height:320px;
+}
+.contact-section{
+    background:#eef6fb;
+    padding:50px 20px;
+    text-align:center;
+}
+
+.contact-section h1{
+    font-size:48px;
+    font-weight:300;
+    color:#5f758c;
+    font-family:'Cormorant Garamond', serif;
+    margin-bottom:10px;
+}
+
+.contact-section p{
+    color:#9bb3c9;
+    font-size:15px;
+    margin-bottom:35px;
+}
+
+.contact-form{
+    width:520px;   
+    margin:auto;
+    text-align:left;
+}
+
+.contact-form label{
+    display:block;
+    margin:15px 0 8px;
+    color:#6d8499;
+    letter-spacing:2px;
+    font-size:14px;
+}
+
+.contact-form input{
+    width:100%;
+    height:45px;   
+    padding:10px 15px;
+    border:1px solid #e2edf5;
+    background:#fff;
+}
+
+.contact-form textarea{
+    width:100%;
+    height:130px; 
+    padding:15px;
+    border:1px solid #e2edf5;
+    resize:none;
+}
+
+.contact-form button{
+    width:100%;
+    margin-top:18px;
+    background:#566d7f;
+    color:white;
+    border:none;
+    padding:14px;
+    font-size:15px;
+    letter-spacing:2px;
+    cursor:pointer;
+}
+.contact-info{
+    margin-top:35px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:40px;
+    flex-wrap:nowrap;
+    white-space:nowrap;
+}
+footer{
+    text-align:center;
+    padding:30px;
+    margin-top:40px;
+    color:#7a8ca0;
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">❄ WINTER</div>
+
+    <ul>
+    <li><a href="#home">HOME</a></li>
+    <li><a href="#gallery">GALLERY</a></li>
+    <li><a href="#about">ABOUT</a></li>
+    <li><a href="#contact">CONTACT</a></li>
+</ul>
+</nav>
+
+<section id="home" class="hero">
+
+<div class="snow" id="snow"></div>
+
+<div class="hero-content">
+    <h1>Winter Moments</h1>
+    <p>A COLLECTION OF FROZEN BEAUTY</p>
+</div>
+
+</section>
+
+<section class="category-menu">
+
+<button class="active" onclick="filterSelection('all',this)">ALL</button>
+
+<button onclick="filterSelection('landscape',this)">
+LANDSCAPES
+</button>
+
+<button onclick="filterSelection('decor',this)">
+DECORATIONS
+</button>
+
+<button onclick="filterSelection('food',this)">
+FOOD
+</button>
+
+<button onclick="filterSelection('family',this)">
+FAMILY
+</button>
+
+</section>
+
+<section id="gallery" class="gallery">
+
+<div class="gallery-item landscape">
+<img src="https://images.unsplash.com/photo-1483664852095-d6cc6870702d?w=900">
+</div>
+
+<div class="gallery-item landscape">
+<img src="https://images.unsplash.com/photo-1455156218388-5e61b526818b?w=900">
+</div>
+
+<div class="gallery-item decor">
+<img src="https://images.unsplash.com/photo-1512909006721-3d6018887383?w=900">
+</div>
+
+<div class="gallery-item decor">
+<img src="https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=900">
+</div>
+
+<div class="gallery-item food">
+<img src="https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?w=900">
+</div>
+
+<div class="gallery-item food">
+<img src="https://images.unsplash.com/photo-1549007953-2f2dc0b24019?w=900">
+</div>
+
+<div class="gallery-item family">
+<img src="https://images.unsplash.com/photo-1518733057094-95b53143d2a7?w=900">
+</div>
+
+<div class="gallery-item family">
+<img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900">
+</div>
+
+</section>
+<section id="about" class="about-section">
+ <h2 class="about-title">About</h2>
+    <div class="about-container">
+        <div class="about-text">
+
+            <p>
+                Capturing the serene beauty of winter landscapes has been my
+                passion for over a decade. Each photograph tells a story of
+                frozen moments, quiet snowfalls, and the peaceful stillness
+                that blankets the world during the coldest months.
+            </p>
+
+            <p>
+                From the majestic mountain peaks covered in pristine snow
+                to intimate family moments wrapped in winter warmth,
+                my work celebrates the unique beauty that this season brings.
+                Through my lens, I aim to preserve the fleeting magic of
+                winter—the way light dances on ice crystals, the cozy comfort
+                of holiday gatherings, and the breathtaking landscapes
+                transformed by snow.
+            </p>
+
+            <p>
+                My photography has been featured in various publications and
+                exhibitions, and I continue to explore new ways to capture
+                the essence of winter.
+            </p>
+
+        </div>
+
+
+        <div class="about-right">
+
+            <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=1000" alt="">
+
+            <div class="stats">
+
+                <div class="stat-box">
+                    <h2>10+</h2>
+                    <span>YEARS EXPERIENCE</span>
+                </div>
+
+                <div class="stat-box">
+                    <h2>500+</h2>
+                    <span>PHOTOS CAPTURED</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<section id="contact" class="contact-section">
+
+    <h1>Get in Touch</h1>
+
+    <p>Let's work together to capture your winter moments</p>
+
+    <form class="contact-form">
+
+        <label>NAME</label>
+        <input type="text">
+
+        <label>EMAIL</label>
+        <input type="email">
+
+        <label>MESSAGE</label>
+        <textarea rows="7"></textarea>
+
+        <button type="submit">SEND MESSAGE</button>
+<div class="contact-info">
+    <span>📧 hello@winterportfolio.com</span>
+    <span>📱 +1 (555) 123-4567</span>
+    <span>📍 Colorado, USA</span>
+</div>
+    </form>
+
+</section>
+
+<footer>
+    © 2026 Winter Portfolio • Designed By AY
+</footer>
+
+<script>
+
+function filterSelection(category,btn){
+
+let items=document.querySelectorAll('.gallery-item');
+
+items.forEach(item=>{
+
+if(category==="all"){
+item.classList.remove("hide");
+}
+else{
+if(item.classList.contains(category)){
+item.classList.remove("hide");
+}
+else{
+item.classList.add("hide");
+}
+}
+
+});
+
+document.querySelectorAll(".category-menu button")
+.forEach(b=>b.classList.remove("active"));
+
+btn.classList.add("active");
+}
+
+const snow=document.getElementById("snow");
+
+for(let i=0;i<80;i++){
+
+let flake=document.createElement("span");
+
+flake.innerHTML="❄";
+
+flake.style.left=Math.random()*100+"%";
+
+flake.style.fontSize=
+(Math.random()*15+10)+"px";
+
+flake.style.animationDuration=
+(Math.random()*10+5)+"s";
+
+flake.style.animationDelay=
+Math.random()*5+"s";
+
+snow.appendChild(flake);
+}
+
+</script>
+
+</body>
+</html>
