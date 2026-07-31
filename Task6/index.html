@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Whitepace Clone</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    font-family:'Inter',sans-serif;
+}
+
+/* Colors */
+
+.bg-primary-custom{
+    background:#043873;
+}
+
+.btn-login{
+    background:#FFE492;
+    color:#043873;
+    padding:12px 35px;
+    border-radius:8px;
+    font-weight:500;
+}
+
+.btn-login:hover{
+    background:#ffd86b;
+}
+
+.btn-try{
+    background:#4F9CF9;
+    color:#fff;
+    padding:12px 28px;
+    border-radius:8px;
+}
+
+.btn-try:hover{
+    background:#3385f8;
+    color:white;
+}
+
+/* Hero */
+
+.hero{
+    background:#043873;
+    min-height:90vh;
+    display:flex;
+    align-items:center;
+}
+
+.hero h1{
+    font-size:64px;
+    font-weight:700;
+    line-height:1.2;
+}
+
+.hero p{
+    color:#ffffff;
+    font-size:18px;
+    margin:30px 0;
+    line-height:30px;
+}
+
+.placeholder-box{
+
+    width:100%;
+    height:420px;
+
+    background:#C4DEFD;
+    border-radius:8px;
+
+}
+
+@media(max-width:992px){
+
+.hero{
+
+text-align:center;
+padding:80px 0;
+
+}
+
+.hero h1{
+
+font-size:42px;
+
+}
+
+.placeholder-box{
+
+margin-top:50px;
+
+}
+
+}
+
+/* ---------- Section Headings ---------- */
+
+h2{
+
+font-size:60px;
+font-weight:700;
+line-height:1.2;
+
+}
+
+</style>
+
+</head>
+<body>
+
+<!-- Navbar -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary-custom py-3">
+
+<div class="container">
+
+<a class="navbar-brand fw-bold fs-3" href="#">
+
+Whitepace
+
+</a>
+
+<button
+class="navbar-toggler"
+type="button"
+data-bs-toggle="collapse"
+data-bs-target="#navbar">
+
+<span class="navbar-toggler-icon"></span>
+
+</button>
+
+<div class="collapse navbar-collapse" id="navbar">
+
+<ul class="navbar-nav mx-auto">
+
+   <ul class="navbar-nav mx-auto gap-4">
+
+    <li class="nav-item">
+        <a class="nav-link fs-5 fw-semibold px-2" href="#project">Products</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link fs-5 fw-semibold px-2" href="#extension">Solutions</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link fs-5 fw-semibold px-2" href="#work">Resources</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link fs-5 fw-semibold px-2" href="#pricing">Pricing</a>
+    </li>
+
+</ul>
+
+</ul>
+
+<div class="d-flex gap-3">
+
+<button class="btn btn-login">
+
+Login
+
+</button>
+
+<button class="btn btn-try">
+
+Try Whitepace →
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</nav>
+<!-- Hero -->
+<section id="home" class="hero py-5">
+
+    <div class="container">
+
+        <div class="row align-items-center gy-5">
+
+            <!-- Left Content -->
+            <div class="col-12 col-md-12 col-lg-6 text-center text-lg-start">
+
+                <h1 class="display-3 fw-bold text-white">
+                    Get More Done with whitepace
+                </h1>
+
+                <p class="text-white my-4">
+                    Project management software that enables your teams to collaborate,
+                    plan, analyze and manage everyday tasks.
+                </p>
+
+                <button class="btn btn-try px-4 py-3">
+                    Try Whitepace free →
+                </button>
+
+            </div>
+
+            <!-- Right Image -->
+            <div class="col-12 col-md-12 col-lg-6 text-center">
+<img src="hero1.png"
+     class="img-fluid w-100 h-100 rounded"
+     alt="Hero Image">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ================= Project Management ================= -->
+
+<section id="project" class="py-5">
+    <div class="container">
+
+        <div class="row align-items-center gy-5">
+
+            <!-- Left Content -->
+            <div class="col-lg-6">
+
+                <h2 class="display-4 fw-bold">
+                    Project Management
+                </h2>
+
+                <p class="text-secondary my-4">
+                    Images, videos, PDFs and audio files are supported. Create math expressions
+                    and diagrams directly from the app. Take photos with the mobile app and save
+                    them to a note.
+                </p>
+
+                <a href="#" class="btn btn-primary btn-lg px-4">
+                    Get Started →
+                </a>
+
+            </div>
+
+            <!-- Right Image -->
+            <div class="col-lg-6">
+
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80"
+     class="img-fluid rounded"
+     alt="Project Dashboard">
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+
+<!-- ================= Work Together ================= -->
+
+<section id="work" class="py-5">
+
+    <div class="container">
+
+        <div class="row align-items-center gy-5">
+
+            <div class="col-lg-6 text-center">
+              
+                   <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80"
+     class="img-fluid rounded"
+     alt="Team Collaboration">
+
+
+            </div>
+
+
+            <div class="col-lg-6">
+
+                <h2 class="display-4 fw-bold">
+                    Work Together
+                </h2>
+
+                <p class="text-secondary my-4">
+
+                    With whitepace, share your notes with your colleagues and collaborate
+                    on them. You can also publish a note to the internet and share the URL
+                    with others.
+
+                </p>
+
+                <a href="#" class="btn btn-primary btn-lg px-4">
+
+                    Try it now →
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= Use as Extension ================= -->
+
+<section id="extension" class="bg-primary-custom text-white py-5">
+
+<div class="container">
+
+<div class="row align-items-center gy-5">
+
+<div class="col-lg-6">
+
+<h2 class="fw-bold display-5 text-white">
+Use as Extension
+</h2>
+
+<p class="mt-4 text-white">
+Use the web clipper extension, available on Chrome and Firefox, to save web pages or take screenshots as notes.
+</p>
+
+<a href="#" class="btn btn-try mt-3">
+Let's Go →
+</a>
+
+</div>
+
+<div class="col-lg-6">
+<img src="extension.png"
+     class="img-fluid"
+     alt="Use as Extension">
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+<!-- ================= Customize ================= -->
+
+<section class="py-5">
+
+<div class="container">
+
+<div class="row align-items-center gy-5">
+
+<div class="col-lg-6">
+
+    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800"
+         class="img-fluid rounded"
+         alt="Customize">
+
+</div>
+
+<div class="col-lg-6">
+
+<h2 class="fw-bold display-5">
+Customize it to your needs
+</h2>
+
+<p class="text-secondary mt-4">
+Customise the app with plugins, custom themes and multiple text editors. Rich text or Markdown are supported.
+</p>
+
+<a href="#" class="btn btn-try mt-3">
+Let's Go →
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+<!-- ================= Pricing Section ================= -->
+
+<section id="pricing" class="py-5 bg-light">
+  <div class="container">
+
+    <div class="text-center mb-5">
+      <h2 class="fw-bold display-5">Choose Your Plan</h2>
+      <p class="text-muted col-lg-6 mx-auto">
+        Whether you want to get organized, keep your personal life on track,
+        or boost workplace productivity, Whitepace has the right plan for you.
+      </p>
+    </div>
+
+    <div class="row g-4">
+
+      <!-- Free Plan -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm border-warning">
+          <div class="card-body p-5">
+
+            <h4 class="fw-bold">Free</h4>
+
+            <h2 class="fw-bold my-4">$0</h2>
+
+            <p class="text-muted">
+              Capture ideas and find them quickly.
+            </p>
+
+            <ul class="list-unstyled my-4">
+
+              <li class="mb-3">✔ Sync unlimited devices</li>
+
+              <li class="mb-3">✔ 10 GB Monthly uploads</li>
+
+              <li class="mb-3">✔ 200 MB max note size</li>
+
+              <li class="mb-3">✔ Customize dashboard</li>
+
+              <li class="mb-3">✔ Basic collaboration</li>
+
+            </ul>
+
+            <button class="btn btn-outline-primary w-100">
+              Get Started
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Personal Plan -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-lg text-white"
+             style="background:#043873;">
+
+          <div class="card-body p-5">
+
+            <h4 class="fw-bold">Personal</h4>
+
+            <h2 class="fw-bold my-4 text-warning">$11.99</h2>
+
+            <p>
+              Keep home and family on track.
+            </p>
+
+            <ul class="list-unstyled my-4">
+
+              <li class="mb-3">✔ Unlimited devices</li>
+
+              <li class="mb-3">✔ 10 GB Monthly uploads</li>
+
+              <li class="mb-3">✔ Unlimited shared notes</li>
+
+              <li class="mb-3">✔ Real-time collaboration</li>
+
+              <li class="mb-3">✔ Priority support</li>
+
+            </ul>
+
+            <button class="btn btn-primary w-100">
+              Get Started
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Organization Plan -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm border-warning">
+
+          <div class="card-body p-5">
+
+            <h4 class="fw-bold">Organization</h4>
+
+            <h2 class="fw-bold my-4">$49.99</h2>
+
+            <p class="text-muted">
+              Capture ideas and collaborate with your team.
+            </p>
+
+            <ul class="list-unstyled my-4">
+
+              <li class="mb-3">✔ Unlimited devices</li>
+
+              <li class="mb-3">✔ Team collaboration</li>
+
+              <li class="mb-3">✔ Unlimited uploads</li>
+
+              <li class="mb-3">✔ Admin dashboard</li>
+
+              <li class="mb-3">✔ 24/7 Support</li>
+
+            </ul>
+
+            <button class="btn btn-outline-primary w-100">
+              Get Started
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+<!-- ================= Your Work ================= -->
+
+<section class="py-5 text-white" style="background:#043873;">
+    <div class="container py-5">
+
+        <div class="row justify-content-center text-center">
+
+            <div class="col-lg-9">
+
+                <h2 class="display-4 fw-bold">
+                    Your work, everywhere you are
+                </h2>
+
+                <p class="mt-4 mb-4">
+                    Access your notes from your computer, phone or tablet by synchronising with various services,
+                    including Whitepace, Dropbox and OneDrive. The app is available on Windows, macOS, Linux,
+                    Android and iOS.
+                </p>
+
+                <a href="#" class="btn btn-primary px-5 py-3">
+                    Try Taskey →
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+<!-- ================= 100% Your Data ================= -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-6">
+
+                <h2 class="display-4 fw-bold">
+                    100% your data
+                </h2>
+
+                <p class="text-secondary my-4">
+                    The app is open source and your notes are saved to an open format, so you'll always have access
+                    to them. Uses end-to-end encryption to secure your notes and ensure no one but yourself can access them.
+                </p>
+
+                <a href="#" class="btn btn-primary px-4 py-3">
+                    Read More →
+                </a>
+
+            </div>
+
+             <div class="col-lg-6 text-center">
+
+                <img src="illusion.png"
+                     class="img-fluid"
+                     alt="100% Your Data">
+
+            </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+<!-- ================= Sponsors ================= -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <h2 class="display-4 fw-bold text-center mb-5">
+            Our Sponsors
+        </h2>
+
+        <div class="row text-center align-items-center gy-4">
+
+            <div class="col-6 col-sm-3 text-center">
+
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
+                    class="img-fluid"
+                    style="max-height:60px;">
+
+            </div>
+
+            <div class="col-6 col-sm-3 text-center">
+
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg"
+     class="img-fluid"
+     style="max-height:45px;"
+     alt="Microsoft">
+
+            </div>
+
+            <div class="col-6 col-sm-3 text-center">
+
+               <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg"
+     class="img-fluid"
+     style="max-height:55px;"
+     alt="Slack">
+
+            </div>
+
+            <div class="col-6 col-sm-3 text-center">
+
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+     class="img-fluid"
+     style="height:80px;"
+     alt="Google">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= Work With Your Favorite Apps ================= -->
+
+<section class="py-5 text-white" style="background:#043873;">
+
+    <div class="container">
+
+        <div class="row align-items-center gy-5">
+
+            <!-- Left Image -->
+            <div class="col-lg-6 text-center">
+
+              <img src="app.png"
+     class="img-fluid"
+     style="max-width:650px; width:100%;"
+     alt="Apps">
+
+            </div>
+
+            <!-- Right Content -->
+            <div class="col-lg-6">
+
+                <h2 class="display-5 fw-bold">
+                    Work with Your Favorite Apps Using Whitepace
+                </h2>
+
+                <p class="my-4">
+                    Whitepace teams up with your favorite software. Integrate with over
+                    1000+ apps with Zapier to have all the tools you need for your project success.
+                </p>
+
+                <a href="#" class="btn btn-primary px-4 py-3">
+                    Read More →
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ================= Testimonials ================= -->
+
+<section class="py-5 bg-light">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h2 class="display-4 fw-bold">
+                What Our Clients Say
+            </h2>
+
+        </div>
+
+        <div class="row g-4">
+
+            <!-- Testimonial 1 -->
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="card border-0 shadow h-100">
+
+                    <div class="card-body p-4">
+
+                        <h1 class="text-primary">❝</h1>
+
+                        <p class="text-muted">
+                            Whitepace has transformed the way our team collaborates.
+                            Everything is organized and easy to find.
+                        </p>
+
+                        <hr>
+
+                        <div class="d-flex align-items-center">
+
+                            <img src="https://i.pravatar.cc/80?img=12"
+                                class="rounded-circle me-3"
+                                width="60"
+                                height="60">
+
+                            <div>
+
+                                <h5 class="mb-0 fw-bold">
+                                    Oberon Shaw
+                                </h5>
+
+                                <small class="text-muted">
+                                    Head of Operations
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Testimonial 2 -->
+
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="card border-0 text-white shadow h-100"
+                    style="background:#4F9CF9;">
+
+                    <div class="card-body p-4">
+
+                        <h1>❝</h1>
+
+                        <p>
+                            Our productivity increased dramatically after using
+                            Whitepace. It is simple, fast and reliable.
+                        </p>
+
+                        <hr class="border-light">
+
+                        <div class="d-flex align-items-center">
+
+                            <img src="https://i.pravatar.cc/80?img=24"
+                                class="rounded-circle me-3"
+                                width="60"
+                                height="60">
+
+                            <div>
+
+                                <h5 class="mb-0">
+                                    Oberon Shaw
+                                </h5>
+
+                                <small>
+                                    Product Manager
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Testimonial 3 -->
+
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="card border-0 text-white shadow h-100"
+                    style="background:#4F9CF9;">
+
+                    <div class="card-body p-4">
+
+                        <h1>❝</h1>
+
+                        <p>
+                            The clean interface and collaboration features make
+                            this our favorite productivity platform.
+                        </p>
+
+                        <hr class="border-light">
+
+                        <div class="d-flex align-items-center">
+
+                            <img src="https://i.pravatar.cc/80?img=35"
+                                class="rounded-circle me-3"
+                                width="60"
+                                height="60">
+
+                            <div>
+
+                                <h5 class="mb-0">
+                                    Oberon Shaw
+                                </h5>
+
+                                <small>
+                                    UX Designer
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= Call To Action ================= -->
+
+<section id="Contact" class="py-5 text-center text-white" style="background:#043873;">
+
+    <div class="container py-5">
+
+        <h2 class="display-3 fw-bold">
+            Try Whitepace Today
+        </h2>
+
+        <p class="lead mt-4">
+            Get started for free. Add your whole team as your needs grow.
+        </p>
+
+        <a href="#" class="btn btn-primary btn-lg px-5 mt-3">
+            Try Taskey Free →
+        </a>
+
+        <p class="mt-4">
+            On a big team? Contact sales.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+
+
+<!-- ================= Footer ================= -->
+
+<footer class="text-white py-5" style="background:#043873;">
+
+    <div class="container">
+
+        <div class="row gy-4">
+
+            <div class="col-12 col-md-6 col-lg-3 text-center text-lg-start">
+
+                <h3 class="fw-bold">
+                    Whitepace
+                </h3>
+
+                <p>
+                    Whitepace was created for the new ways we live and work.
+                    We make collaboration easier than ever.
+                </p>
+
+            </div>
+
+            <div class="col-lg-2">
+
+                <h5>Product</h5>
+
+                <ul class="list-unstyled">
+
+                    <li><a href="#" class="text-white text-decoration-none">Overview</a></li>
+                    <li><a href="#" class="text-white text-decoration-none">Pricing</a></li>
+                    <li><a href="#" class="text-white text-decoration-none">Customers</a></li>
+
+                </ul>
+
+            </div>
+
+            <div class="col-lg-2">
+
+                <h5>Resources</h5>
+
+                <ul class="list-unstyled">
+
+                    <li><a href="#" class="text-white text-decoration-none">Blog</a></li>
+                    <li><a href="#" class="text-white text-decoration-none">Help Center</a></li>
+                    <li><a href="#" class="text-white text-decoration-none">Support</a></li>
+
+                </ul>
+
+            </div>
+
+            <div class="col-lg-2">
+
+                <h5>Company</h5>
+
+                <ul class="list-unstyled">
+
+                    <li><a href="#" class="text-white text-decoration-none">About</a></li>
+                    <li><a href="#" class="text-white text-decoration-none">Careers</a></li>
+                    <li><a href="#" class="text-white text-decoration-none">Media Kit</a></li>
+
+                </ul>
+
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3 text-center text-lg-start">
+
+                <h5>Try It Today</h5>
+
+                <p>
+                    Get started for free and add your whole team later.
+                </p>
+
+                <a href="#" class="btn btn-primary">
+                    Start Today →
+                </a>
+
+            </div>
+
+        </div>
+
+        <hr class="border-light my-4">
+
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+
+            <p class="mb-2 mb-md-0">
+                © 2026 Whitepace. All rights reserved.
+            </p>
+
+            <div>
+
+                <a href="#" class="text-white me-3 fs-5 text-decoration-none">
+                    <i class="bi bi-facebook"></i>
+                </a>
+
+                <a href="#" class="text-white me-3 fs-5 text-decoration-none">
+                    <i class="bi bi-twitter"></i>
+                </a>
+
+                <a href="#" class="text-white fs-5 text-decoration-none">
+                    <i class="bi bi-linkedin"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
