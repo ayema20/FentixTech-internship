@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React To-Do List</title>
+
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 650px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .header h1 {
+      color: #333;
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      color: #777;
+    }
+
+    .input-area {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .input-area input {
+      flex: 1;
+      padding: 14px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .input-area input:focus {
+      border-color: #667eea;
+    }
+
+    .add-btn {
+      padding: 0 20px;
+      border: none;
+      border-radius: 10px;
+      background: #667eea;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .add-btn:hover {
+      background: #5568d9;
+    }
+
+    .error {
+      color: #e74c3c;
+      font-size: 14px;
+      margin: 10px 0;
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      margin: 20px 0;
+    }
+
+    .filter-btn {
+      padding: 9px 15px;
+      border: none;
+      border-radius: 8px;
+      background: #eee;
+      color: #555;
+      cursor: pointer;
+    }
+
+    .filter-btn.active {
+      background: #667eea;
+      color: white;
+    }
+
+    .task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .task {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px;
+      background: #f7f8ff;
+      border: 1px solid #e5e7ff;
+      border-radius: 12px;
+    }
+
+    .task.completed {
+      background: #f1f1f1;
+    }
+
+    .checkbox {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .task-text {
+      flex: 1;
+      color: #333;
+      font-size: 16px;
+      word-break: break-word;
+    }
+
+    .task.completed .task-text {
+      text-decoration: line-through;
+      color: #999;
+    }
+
+    .edit-btn,
+    .delete-btn {
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+
+    .edit-btn {
+      background: #f39c12;
+    }
+
+    .delete-btn {
+      background: #e74c3c;
+    }
+
+    .edit-btn:hover {
+      background: #d68910;
+    }
+
+    .delete-btn:hover {
+      background: #c0392b;
+    }
+
+    .empty {
+      text-align: center;
+      color: #999;
+      padding: 30px;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+      padding-top: 18px;
+      border-top: 1px solid #ddd;
+      color: #777;
+      font-size: 14px;
+    }
+
+    @media (max-width: 550px) {
+      body {
+        padding: 20px 10px;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      .input-area {
+        flex-direction: column;
+      }
+
+      .add-btn {
+        padding: 13px;
+      }
+
+      .task {
+        flex-wrap: wrap;
+      }
+
+      .filters {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+const { useState, useEffect } = React;
+
+
+/* TASK COMPONENT */
+
+function Task({ task, onToggle, onDelete, onEdit }) {
+
+  return (
+    <div className={`task ${task.completed ? "completed" : ""}`}>
+
+      <input
+        type="checkbox"
+        className="checkbox"
+        checked={task.completed}
+        onChange={() => onToggle(task.id)}
+      />
+
+      <span className="task-text">
+        {task.text}
+      </span>
+
+      <button
+        className="edit-btn"
+        onClick={() => onEdit(task)}
+      >
+        Edit
+      </button>
+
+      <button
+        className="delete-btn"
+        onClick={() => onDelete(task.id)}
+      >
+        Delete
+      </button>
+
+    </div>
+  );
+}
+
+
+/* MAIN APP */
+
+function App() {
+
+  const [tasks, setTasks] = useState(() => {
+
+    const savedTasks = localStorage.getItem("todoTasks");
+
+    return savedTasks
+      ? JSON.parse(savedTasks)
+      : [];
+
+  });
+
+  const [input, setInput] = useState("");
+
+  const [filter, setFilter] = useState("all");
+
+  const [error, setError] = useState("");
+
+
+  /* SAVE TO LOCAL STORAGE */
+
+  useEffect(() => {
+
+    localStorage.setItem(
+      "todoTasks",
+      JSON.stringify(tasks)
+    );
+
+  }, [tasks]);
+
+
+  /* ADD TASK */
+
+  function addTask() {
+
+    const text = input.trim();
+
+    if (text === "") {
+
+      setError("Please enter a task!");
+
+      return;
+    }
+
+    const newTask = {
+      id: Date.now(),
+      text: text,
+      completed: false
+    };
+
+    setTasks([...tasks, newTask]);
+
+    setInput("");
+
+    setError("");
+  }
+
+
+  /* ENTER KEY */
+
+  function handleKeyDown(event) {
+
+    if (event.key === "Enter") {
+      addTask();
+    }
+
+  }
+
+
+  /* COMPLETE TASK */
+
+  function toggleTask(id) {
+
+    setTasks(
+
+      tasks.map(task => {
+
+        if (task.id === id) {
+
+          return {
+            ...task,
+            completed: !task.completed
+          };
+
+        }
+
+        return task;
+
+      })
+
+    );
+
+  }
+
+
+  /* DELETE TASK */
+
+  function deleteTask(id) {
+
+    setTasks(
+      tasks.filter(task => task.id !== id)
+    );
+
+  }
+
+
+  /* EDIT TASK */
+
+  function editTask(task) {
+
+    const newText = prompt(
+      "Edit your task:",
+      task.text
+    );
+
+    if (newText === null) {
+      return;
+    }
+
+    const text = newText.trim();
+
+    if (text === "") {
+
+      alert("Task cannot be empty!");
+
+      return;
+    }
+
+    setTasks(
+
+      tasks.map(item => {
+
+        if (item.id === task.id) {
+
+          return {
+            ...item,
+            text: text
+          };
+
+        }
+
+        return item;
+
+      })
+
+    );
+
+  }
+
+
+  /* FILTER */
+
+  const filteredTasks = tasks.filter(task => {
+
+    if (filter === "completed") {
+      return task.completed;
+    }
+
+    if (filter === "pending") {
+      return !task.completed;
+    }
+
+    return true;
+
+  });
+
+
+  const completedTasks =
+    tasks.filter(task => task.completed).length;
+
+  const pendingTasks =
+    tasks.filter(task => !task.completed).length;
+
+
+  return (
+
+    <div className="container">
+
+      <div className="header">
+
+        <h1>✨ My To-Do List</h1>
+
+        <p>
+          Stay organized and get things done!
+        </p>
+
+      </div>
+
+
+      <div className="input-area">
+
+        <input
+          type="text"
+          placeholder="Enter a new task..."
+          value={input}
+          onChange={(e) => {
+            setInput(e.target.value);
+            setError("");
+          }}
+          onKeyDown={handleKeyDown}
+        />
+
+        <button
+          className="add-btn"
+          onClick={addTask}
+        >
+          + Add Task
+        </button>
+
+      </div>
+
+
+      {error && (
+        <div className="error">
+          {error}
+        </div>
+      )}
+
+
+      <div className="filters">
+
+        <button
+          className={`filter-btn ${
+            filter === "all" ? "active" : ""
+          }`}
+          onClick={() => setFilter("all")}
+        >
+          All ({tasks.length})
+        </button>
+
+        <button
+          className={`filter-btn ${
+            filter === "pending" ? "active" : ""
+          }`}
+          onClick={() => setFilter("pending")}
+        >
+          Pending ({pendingTasks})
+        </button>
+
+        <button
+          className={`filter-btn ${
+            filter === "completed" ? "active" : ""
+          }`}
+          onClick={() => setFilter("completed")}
+        >
+          Completed ({completedTasks})
+        </button>
+
+      </div>
+
+
+      <div className="task-list">
+
+        {filteredTasks.length === 0 ? (
+
+          <div className="empty">
+            🎉 No tasks here!
+          </div>
+
+        ) : (
+
+          filteredTasks.map(task => (
+
+            <Task
+              key={task.id}
+              task={task}
+              onToggle={toggleTask}
+              onDelete={deleteTask}
+              onEdit={editTask}
+            />
+
+          ))
+
+        )}
+
+      </div>
+
+
+      <div className="stats">
+
+        <span>
+          Total: {tasks.length}
+        </span>
+
+        <span>
+          Completed: {completedTasks}
+        </span>
+
+        <span>
+          Pending: {pendingTasks}
+        </span>
+
+      </div>
+
+    </div>
+
+  );
+
+}
+
+const root = ReactDOM.createRoot(
+  document.getElementById("root")
+);
+
+root.render(<App />);
+
+</script>
+
+</body>
+</html>
