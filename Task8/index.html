@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Furniture Gallery</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --dark:#292929;
+      --text:#2f2f2f;
+      --muted:#777;
+      --line:#e8e8e8;
+      --soft:#f5f5f3;
+      --cream:#f1f1ed;
+      --accent:#d94b3d;
+      --white:#fff;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:Arial,Helvetica,sans-serif;color:var(--text);background:#fff;line-height:1.5}
+    button,input{font:inherit}
+    button{cursor:pointer}
+    img{display:block;width:100%;object-fit:cover}
+    a{text-decoration:none;color:inherit}
+
+    .topbar{
+      background:var(--dark);color:#fff;text-align:center;font-size:12px;
+      padding:9px 15px;letter-spacing:.4px
+    }
+    header{
+      background:#fff;border-bottom:1px solid var(--line);
+      position:sticky;top:0;z-index:50
+    }
+    .nav{
+      max-width:1180px;margin:auto;height:76px;display:flex;align-items:center;
+      justify-content:space-between;padding:0 24px;gap:25px
+    }
+    .logo{font-size:24px;font-weight:700;letter-spacing:1px}
+    .logo span{font-weight:400}
+    .navlinks{display:flex;gap:30px;font-size:14px;color:#555}
+    .navlinks a:hover{color:#111}
+    .actions{display:flex;align-items:center;gap:15px}
+    .icon-btn{
+      border:0;background:transparent;width:34px;height:34px;position:relative;
+      display:grid;place-items:center;color:#333
+    }
+    .icon-btn svg{width:20px;height:20px}
+    .cart-count{
+      position:absolute;right:-4px;top:-4px;background:var(--accent);color:#fff;
+      min-width:17px;height:17px;border-radius:50%;font-size:10px;
+      display:grid;place-items:center;padding:0 4px
+    }
+    .hamb{display:none}
+
+    .hero{
+      max-width:1180px;margin:28px auto 0;padding:0 24px;
+    }
+    .hero-grid{
+      min-height:360px;background:linear-gradient(110deg,#e9e9e5,#f7f7f4);
+      display:grid;grid-template-columns:1.05fr .95fr;overflow:hidden
+    }
+    .hero-copy{display:flex;flex-direction:column;justify-content:center;padding:55px}
+    .eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#777;margin-bottom:13px}
+    h1{font-size:48px;line-height:1.08;letter-spacing:-1.5px;margin-bottom:16px}
+    .hero-copy p{max-width:420px;color:#666;font-size:14px;margin-bottom:25px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;border:0;
+      background:var(--dark);color:#fff;padding:13px 27px;font-size:13px;
+      width:max-content;transition:.2s
+    }
+    .btn:hover{background:#000;transform:translateY(-1px)}
+    .hero-image{height:360px}
+    .hero-image img{height:100%;object-position:center}
+
+    .features{
+      max-width:1180px;margin:0 auto;padding:30px 24px;
+      display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)
+    }
+    .feature{display:flex;align-items:center;justify-content:center;gap:12px;border-right:1px solid var(--line)}
+    .feature:last-child{border-right:0}
+    .feature svg{width:27px;height:27px}
+    .feature strong{display:block;font-size:12px}
+    .feature span{display:block;color:#888;font-size:10px;margin-top:2px}
+
+    section{max-width:1180px;margin:auto;padding:68px 24px}
+    .section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:28px}
+    .section-head h2{font-size:28px;letter-spacing:-.5px}
+    .section-head p{font-size:12px;color:#888}
+
+    .categories{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+    .category{
+      border:1px solid var(--line);background:#fafafa;padding:18px 10px;
+      text-align:center;transition:.2s
+    }
+    .category:hover,.category.active{border-color:#333;background:#fff}
+    .category img{height:85px;object-fit:contain;margin-bottom:8px}
+    .category span{font-size:12px}
+
+    .toolbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:25px}
+    .filters{display:flex;gap:8px;flex-wrap:wrap}
+    .filter{
+      border:1px solid #ddd;background:#fff;padding:9px 16px;font-size:11px;
+      color:#666
+    }
+    .filter.active,.filter:hover{background:var(--dark);border-color:var(--dark);color:#fff}
+    .search{
+      width:250px;border:1px solid #ddd;display:flex;align-items:center;padding:0 11px;
+      background:#fff
+    }
+    .search svg{width:16px;color:#888}
+    .search input{border:0;outline:0;width:100%;padding:10px 8px;font-size:12px}
+
+    .products{display:grid;grid-template-columns:repeat(4,1fr);gap:28px 18px}
+    .product-card{position:relative;min-width:0}
+    .product-image{height:250px;background:#f4f4f2;position:relative;overflow:hidden}
+    .product-image img{height:100%;transition:.35s}
+    .product-card:hover .product-image img{transform:scale(1.045)}
+    .badge{
+      position:absolute;left:10px;top:10px;background:#fff;padding:5px 8px;
+      font-size:9px;text-transform:uppercase;letter-spacing:.6px
+    }
+    .quick{
+      position:absolute;right:10px;top:10px;width:32px;height:32px;border:0;
+      background:#fff;display:grid;place-items:center;opacity:0;transition:.2s
+    }
+    .product-card:hover .quick{opacity:1}
+    .product-info{padding:12px 2px}
+    .product-info small{font-size:10px;color:#999}
+    .product-info h3{font-size:14px;font-weight:500;margin:4px 0}
+    .price{font-size:13px;font-weight:700}
+    .add{
+      margin-top:10px;width:100%;border:1px solid #333;background:#fff;
+      padding:9px;font-size:11px;transition:.2s
+    }
+    .add:hover{background:var(--dark);color:#fff}
+
+    .banner{
+      background:#f0f0ec;display:grid;grid-template-columns:1fr 1fr;
+      min-height:300px;overflow:hidden
+    }
+    .banner img{height:300px}
+    .banner-copy{display:flex;flex-direction:column;justify-content:center;padding:50px}
+    .banner-copy h2{font-size:31px;line-height:1.15;margin:7px 0 12px}
+    .banner-copy p{font-size:12px;color:#777;max-width:380px;margin-bottom:22px}
+
+    .newsletter{background:#f6f6f4;text-align:center;padding:60px 20px}
+    .newsletter h2{font-size:27px;margin-bottom:8px}
+    .newsletter p{font-size:12px;color:#777;margin-bottom:20px}
+    .subscribe{max-width:430px;margin:auto;display:flex;background:#fff;border:1px solid #ddd}
+    .subscribe input{flex:1;border:0;outline:0;padding:12px;font-size:12px}
+    .subscribe button{border:0;background:var(--dark);color:#fff;padding:0 20px;font-size:11px}
+
+    footer{background:#292929;color:#fff}
+    .footer-inner{max-width:1180px;margin:auto;padding:52px 24px 30px}
+    .footer-grid{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:40px}
+    .footer-logo{font-size:21px;font-weight:700;margin-bottom:13px}
+    .footer-grid p{color:#aaa;font-size:11px;max-width:260px}
+    .footer-grid h4{font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}
+    .footer-grid a{display:block;color:#aaa;font-size:11px;margin:7px 0}
+    .footer-bottom{border-top:1px solid #444;margin-top:35px;padding-top:18px;color:#888;font-size:10px;display:flex;justify-content:space-between}
+
+    .empty{text-align:center;grid-column:1/-1;padding:60px;color:#888;font-size:13px}
+
+    .drawer-backdrop{
+      position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:80;
+      opacity:0;pointer-events:none;transition:.25s
+    }
+    .drawer{
+      position:fixed;right:-390px;top:0;height:100%;width:min(390px,92vw);background:#fff;
+      z-index:90;transition:.3s;box-shadow:-10px 0 35px rgba(0,0,0,.12);
+      display:flex;flex-direction:column
+    }
+    .drawer.open{right:0}.drawer-backdrop.open{opacity:1;pointer-events:auto}
+    .drawer-head{padding:22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+    .drawer-head h3{font-size:18px}
+    .close{border:0;background:transparent;font-size:25px;color:#666}
+    .cart-items{flex:1;overflow:auto;padding:18px}
+    .cart-item{display:grid;grid-template-columns:72px 1fr auto;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+    .cart-item img{width:72px;height:72px;background:#f4f4f2}
+    .cart-item h4{font-size:12px;margin-bottom:4px}
+    .cart-item p{font-size:11px;color:#777}
+    .qty{display:flex;align-items:center;gap:7px;margin-top:8px}
+    .qty button{width:22px;height:22px;border:1px solid #ddd;background:#fff}
+    .remove{border:0;background:transparent;color:#aaa;font-size:11px}
+    .drawer-foot{padding:18px;border-top:1px solid var(--line)}
+    .total{display:flex;justify-content:space-between;font-size:14px;font-weight:700;margin-bottom:12px}
+    .checkout{width:100%;padding:13px;background:var(--dark);color:#fff;border:0;font-size:12px}
+
+    @media(max-width:900px){
+      .navlinks{display:none}.hamb{display:block}
+      .hero-grid{grid-template-columns:1fr}.hero-image{height:280px}.hero-copy{padding:38px}.hero-copy h1{font-size:38px}
+      .features{grid-template-columns:repeat(2,1fr);gap:20px}.feature:nth-child(2){border-right:0}.feature:nth-child(-n+2){padding-bottom:15px}
+      .categories{grid-template-columns:repeat(3,1fr)}
+      .products{grid-template-columns:repeat(3,1fr)}
+      .footer-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:650px){
+      .nav{height:62px;padding:0 15px}.logo{font-size:20px}.actions{gap:6px}
+      .hero{padding:0 15px;margin-top:15px}.hero-copy{padding:30px 22px}.hero-copy h1{font-size:34px}
+      section{padding:48px 15px}.section-head{display:block}.section-head p{margin-top:5px}
+      .categories{grid-template-columns:repeat(2,1fr)}
+      .toolbar{display:block}.filters{margin-bottom:12px}.search{width:100%}
+      .products{grid-template-columns:repeat(2,1fr);gap:24px 12px}
+      .product-image{height:205px}
+      .banner{grid-template-columns:1fr}.banner img{height:220px}.banner-copy{padding:30px}
+      .footer-grid{grid-template-columns:1fr 1fr;gap:28px 18px}
+      .footer-grid>div:first-child{grid-column:1/-1}
+      .footer-bottom{display:block}.footer-bottom span{display:block;margin-top:5px}
+    }
+    @media(max-width:400px){
+      .products{grid-template-columns:1fr 1fr}.product-image{height:170px}
+      .categories img{height:70px}
+    }
+
+    /* Figma-style inner screens */
+    .screen-overlay{position:fixed;inset:0;background:#fff;z-index:120;overflow:auto;display:none}
+    .screen-overlay.show{display:block}
+    .screen-nav{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(24px,calc((100% - 1180px)/2))}
+    .screen-nav .back{border:0;background:transparent;font-size:12px;color:#666}
+    .screen-title{font-size:22px;font-weight:600;letter-spacing:-.4px}
+    .detail-wrap,.checkout-wrap,.account-wrap{max-width:1180px;margin:auto;padding:45px 24px 70px}
+    .breadcrumbs{font-size:10px;color:#999;margin-bottom:24px}
+    .detail-top{display:grid;grid-template-columns:1.1fr .9fr;gap:55px}
+    .detail-gallery{background:#f5f5f3;min-height:520px;display:grid;place-items:center;position:relative}
+    .detail-gallery img{height:520px;object-fit:contain}
+    .detail-info{padding:20px 0}
+    .detail-info .eyebrow{margin-bottom:8px}
+    .detail-info h1{font-size:36px;margin-bottom:10px}
+    .stars{font-size:13px;letter-spacing:2px;margin:10px 0;color:#555}
+    .detail-price{font-size:21px;font-weight:700;margin:18px 0}
+    .detail-description{font-size:12px;color:#777;max-width:480px;margin-bottom:22px}
+    .option-label{font-size:11px;font-weight:700;margin:16px 0 8px}
+    .swatches{display:flex;gap:8px}
+    .swatch{border:1px solid #ddd;background:#fff;padding:8px 13px;font-size:10px}
+    .swatch.active{border-color:#222}
+    .detail-actions{display:flex;gap:10px;margin-top:24px}
+    .detail-actions .btn{flex:1}
+    .wishlist{border:1px solid #333;background:#fff;width:48px}
+    .detail-sections{margin-top:65px;border-top:1px solid var(--line)}
+    .detail-section{padding:24px 0;border-bottom:1px solid var(--line)}
+    .detail-section h3{font-size:13px;margin-bottom:8px}
+    .detail-section p{font-size:11px;color:#777;max-width:700px}
+    .related-title{margin:55px 0 25px;font-size:22px}
+
+    .checkout-steps{display:flex;justify-content:center;gap:0;margin:10px auto 48px;max-width:650px}
+    .step{flex:1;text-align:center;position:relative;font-size:10px;color:#aaa}
+    .step:before{content:"";display:block;width:27px;height:27px;border:1px solid #ddd;border-radius:50%;margin:0 auto 8px;background:#fff;line-height:25px}
+    .step:after{content:"";position:absolute;height:1px;background:#ddd;top:13px;left:50%;width:100%}
+    .step:last-child:after{display:none}
+    .step.active{color:#222;font-weight:700}.step.active:before{background:#292929;color:#fff;border-color:#292929}
+    .checkout-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:45px}
+    .checkout-card{border:1px solid var(--line);padding:25px;background:#fff}
+    .checkout-card h2{font-size:18px;margin-bottom:20px}
+    .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .field{margin-bottom:14px}.field.full{grid-column:1/-1}
+    .field label{font-size:10px;display:block;margin-bottom:6px;color:#666}
+    .field input,.field select{width:100%;padding:12px;border:1px solid #ddd;outline:0;font-size:11px;background:#fff}
+    .field input:focus{border-color:#555}
+    .pay-option{border:1px solid #ddd;padding:14px;margin-bottom:10px;font-size:11px;display:flex;gap:10px;align-items:center}
+    .pay-option.active{border-color:#222}
+    .order-item{display:grid;grid-template-columns:60px 1fr auto;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);font-size:11px}
+    .order-item img{width:60px;height:60px;background:#f4f4f2}
+    .summary-line{display:flex;justify-content:space-between;font-size:11px;padding:7px 0}
+    .summary-total{font-weight:700;font-size:15px;border-top:1px solid #ddd;margin-top:10px;padding-top:15px}
+    .checkout-next{width:100%;border:0;background:#292929;color:#fff;padding:14px;font-size:11px;margin-top:14px}
+    .success{max-width:650px;margin:60px auto;text-align:center}
+    .success-icon{width:65px;height:65px;border-radius:50%;background:#292929;color:#fff;display:grid;place-items:center;margin:0 auto 20px;font-size:28px}
+    .success h1{font-size:32px}
+    .success p{font-size:12px;color:#777;margin:12px auto 25px;max-width:480px}
+
+    .account-wrap{max-width:480px;padding-top:70px}
+    .account-logo{text-align:center;font-size:23px;font-weight:700;margin-bottom:8px}
+    .account-sub{text-align:center;font-size:11px;color:#888;margin-bottom:30px}
+    .account-card{border:1px solid var(--line);padding:30px}
+    .account-card h2{font-size:22px;margin-bottom:22px}
+    .account-card .btn{width:100%;margin-top:5px}
+    .switch-account{text-align:center;margin-top:18px;font-size:11px;color:#777}
+    .switch-account button{border:0;background:transparent;text-decoration:underline}
+
+    @media(max-width:750px){
+      .detail-top,.checkout-grid{grid-template-columns:1fr;gap:25px}
+      .detail-gallery,.detail-gallery img{min-height:350px;height:350px}
+      .detail-info h1{font-size:30px}
+      .field-grid{grid-template-columns:1fr}
+      .field.full{grid-column:auto}
+      .screen-nav{padding:0 15px}.detail-wrap,.checkout-wrap,.account-wrap{padding-left:15px;padding-right:15px}
+    }
+
+
+    .detail-trust{
+      margin-top:55px;background:#f5f5f2;padding:34px 25px;
+      display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center
+    }
+    .detail-trust-item svg{width:28px;height:28px;margin:0 auto 10px}
+    .detail-trust-item strong{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.7px}
+    .detail-trust-item span{display:block;color:#888;font-size:9px;margin-top:4px}
+    .detail-review-grid{
+      display:grid;grid-template-columns:.75fr 1.25fr;gap:35px;margin-top:12px
+    }
+    .review-form{border:1px solid var(--line);padding:20px}
+    .review-form h4{font-size:12px;margin-bottom:15px}
+    .review-form input,.review-form textarea{
+      width:100%;border:1px solid #ddd;padding:10px;font-size:10px;
+      margin-bottom:9px;outline:0;font-family:inherit
+    }
+    .review-form textarea{height:80px;resize:vertical}
+    .review-form button{border:0;background:#292929;color:#fff;padding:10px 18px;font-size:9px}
+    .review-list{max-height:300px;overflow:auto}
+    .review{padding:0 0 15px;margin-bottom:15px;border-bottom:1px solid var(--line)}
+    .review:last-child{border-bottom:0}
+    .review-head{display:flex;justify-content:space-between;font-size:10px}
+    .review-stars{letter-spacing:1px}
+    .review p{font-size:10px;color:#777;margin-top:5px}
+    .faq-list{border-top:1px solid var(--line)}
+    .faq-item{border-bottom:1px solid var(--line)}
+    .faq-question{
+      width:100%;border:0;background:#fff;padding:15px 3px;text-align:left;
+      font-size:11px;display:flex;justify-content:space-between
+    }
+    .faq-answer{display:none;padding:0 3px 15px;font-size:10px;color:#777}
+    .faq-item.open .faq-answer{display:block}
+    .detail-promo{
+      margin-top:45px;display:grid;grid-template-columns:1fr 1fr;
+      background:#dfe1e1;min-height:210px;overflow:hidden
+    }
+    .detail-promo img{height:210px}
+    .detail-promo-copy{display:flex;flex-direction:column;justify-content:center;padding:30px}
+    .detail-promo-copy h3{font-size:23px;line-height:1.15;margin:5px 0 9px}
+    .detail-promo-copy p{font-size:10px;color:#666;margin-bottom:15px}
+    @media(max-width:700px){
+      .detail-trust{grid-template-columns:repeat(2,1fr)}
+      .detail-review-grid{grid-template-columns:1fr}
+      .detail-promo{grid-template-columns:1fr}.detail-promo img{height:180px}
+    }
+
+  </style>
+</head>
+<body>
+  <div class="topbar">FREE SHIPPING ON ORDERS OVER $500 &nbsp; • &nbsp; 30-DAY EASY RETURNS</div>
+
+  <header>
+    <nav class="nav">
+      <button class="icon-btn hamb" id="menuBtn" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <a class="logo" href="#">NORD<span>HOME</span></a>
+      <div class="navlinks">
+        <a href="#home">Home</a><a href="#shop">Shop</a><a href="#categories">Categories</a><a href="#about">About</a><a href="#contact">Contact</a>
+        <a href="#" onclick="event.preventDefault();openAccount()">Log in / Sign up</a>
+      </div>
+      <div class="actions">
+        <button class="icon-btn" id="searchFocus" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/></svg>
+        </button>
+        <button class="icon-btn" id="accountBtn" aria-label="Account" title="Account" onclick="openAccount()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-4 3.1-6 7-6s6.2 2 7 6"/></svg>
+        </button>
+        <button class="icon-btn" id="cartBtn" aria-label="Cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 7h14l-1.2 12H6.2L5 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="home">
+    <div class="hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">New collection 2026</div>
+          <h1>Furniture<br>for every story.</h1>
+          <p>Thoughtfully designed furniture that brings warmth, comfort and timeless style to your home.</p>
+          <a class="btn" href="#shop">Shop collection</a>
+        </div>
+        <div class="hero-image">
+          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1100&q=85" alt="Modern sofa">
+        </div>
+      </div>
+    </div>
+
+    <div class="features">
+      <div class="feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z"/><circle cx="7" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg><div><strong>Free Delivery</strong><span>Orders over $500</span></div></div>
+      <div class="feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg><div><strong>Secure Payment</strong><span>100% secure checkout</span></div></div>
+      <div class="feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 12a8 8 0 1 0 2.3-5.65"/><path d="M4 5v6h6"/></svg><div><strong>Easy Returns</strong><span>30-day return policy</span></div></div>
+      <div class="feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 18c3-8 7-12 16-12"/><path d="M15 4h5v5"/></svg><div><strong>Quality First</strong><span>Made to last</span></div></div>
+    </div>
+
+    <section id="categories">
+      <div class="section-head">
+        <div><div class="eyebrow">Explore</div><h2>Shop by category</h2></div>
+        <p>Find the perfect piece for every room.</p>
+      </div>
+      <div class="categories" id="categoryGrid"></div>
+    </section>
+
+    <section id="shop">
+      <div class="section-head">
+        <div><div class="eyebrow">Our collection</div><h2>Featured products</h2></div>
+        <p id="resultText">Showing all products</p>
+      </div>
+      <div class="toolbar">
+        <div class="filters" id="filters"></div>
+        <label class="search" id="searchBox">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/></svg>
+          <input id="searchInput" type="search" placeholder="Search products..." />
+        </label>
+      </div>
+      <div class="products" id="productGrid"></div>
+    </section>
+
+    <section id="designScreens">
+      <div class="section-head">
+        <div><div class="eyebrow">Explore the experience</div><h2>Shop with confidence</h2></div>
+        <p>Product details, reviews and checkout are fully interactive.</p>
+      </div>
+      <div class="features" style="border:1px solid var(--line);padding:0">
+        <button class="feature" style="border:0;background:#fff;padding:25px 12px" onclick="openProduct(4)">
+          <div><strong>Product Details</strong><span>Images, options & information</span></div>
+        </button>
+        <button class="feature" style="border:0;background:#fff;padding:25px 12px" onclick="openProduct(4);setTimeout(()=>document.querySelector('#productScreen .detail-sections').scrollIntoView({behavior:'smooth'}),250)">
+          <div><strong>Reviews</strong><span>Verified customer feedback</span></div>
+        </button>
+        <button class="feature" style="border:0;background:#fff;padding:25px 12px" onclick="openCart()">
+          <div><strong>Shopping Cart</strong><span>Persistent localStorage cart</span></div>
+        </button>
+        <button class="feature" style="border:0;background:#fff;padding:25px 12px" onclick="openCheckout()">
+          <div><strong>Checkout</strong><span>Information, shipping & payment</span></div>
+        </button>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="banner">
+        <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=1000&q=85" alt="Minimal living room">
+        <div class="banner-copy">
+          <div class="eyebrow">Made for living</div>
+          <h2>Simple pieces.<br>Beautiful spaces.</h2>
+          <p>Discover our carefully curated collection of chairs, tables, sofas, lighting and bedroom essentials designed to work beautifully together.</p>
+          <a class="btn" href="#shop">Explore products</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="newsletter" id="contact">
+      <div class="eyebrow">Stay inspired</div>
+      <h2>Get 10% off your first order</h2>
+      <p>Join our newsletter for new arrivals, design ideas and exclusive offers.</p>
+      <form class="subscribe" id="subscribeForm">
+        <input type="email" placeholder="Your email address" required>
+        <button type="submit">SUBSCRIBE</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div><div class="footer-logo">NORDHOME</div><p>Furniture for modern living. Timeless design, honest materials and pieces made to stay.</p></div>
+        <div><h4>Shop</h4><a href="#shop">All Products</a><a href="#categories">Sofas</a><a href="#categories">Chairs</a><a href="#categories">Tables</a></div>
+        <div><h4>Help</h4><a href="#">Shipping</a><a href="#">Returns</a><a href="#">FAQ</a><a href="#">Privacy</a></div>
+        <div><h4>Contact</h4><a href="mailto:hello@nordhome.com">hello@nordhome.com</a><a href="tel:+1234567890">+1 234 567 890</a><a href="#">Mon–Fri, 9am–6pm</a></div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 NORDHOME. All rights reserved.</span><span>Designed for the Furniture E-Commerce task</span></div>
+    </div>
+  </footer>
+
+
+  <!-- Product detail screen -->
+  <div class="screen-overlay" id="productScreen">
+    <div class="screen-nav">
+      <button class="back" onclick="closeScreen('productScreen')">← BACK TO SHOP</button>
+      <div class="screen-title">NORDHOME</div>
+      <button class="icon-btn" onclick="openCart()">🛒<span class="cart-count" id="detailCartCount">0</span></button>
+    </div>
+    <div class="detail-wrap">
+      <div class="breadcrumbs">Home / Shop / <span id="detailCrumb">Product</span></div>
+      <div class="detail-top">
+        <div class="detail-gallery"><img id="detailImage" src="" alt=""></div>
+        <div class="detail-info">
+          <div class="eyebrow" id="detailCategory"></div>
+          <h1 id="detailName"></h1>
+          <div class="stars">★★★★★ <span style="letter-spacing:0;color:#999"> (24 reviews)</span></div>
+          <div class="detail-price" id="detailPrice"></div>
+          <p class="detail-description">Beautifully crafted with carefully selected materials, this timeless piece combines comfort and modern design. Made to bring character and warmth to your home.</p>
+          <div class="option-label">COLOR</div>
+          <div class="swatches"><button class="swatch active">Natural</button><button class="swatch">Black</button><button class="swatch">Oak</button></div>
+          <div class="option-label">QUANTITY</div>
+          <div class="qty"><button onclick="detailQty=Math.max(1,detailQty-1);document.getElementById('detailQty').textContent=detailQty">−</button><span id="detailQty">1</span><button onclick="detailQty++;document.getElementById('detailQty').textContent=detailQty">+</button></div>
+          <div class="detail-actions">
+            <button class="btn" onclick="addDetailToCart()">ADD TO CART</button>
+            <button class="wishlist" onclick="this.textContent=this.textContent==='♡'?'♥':'♡'">♡</button>
+          </div>
+          <div class="detail-sections">
+            <div class="detail-section">
+              <h3>PRODUCT DETAIL &nbsp;&nbsp;&nbsp; DELIVERY AND RETURN</h3>
+              <p><b>DESCRIPTION</b><br>
+              A carefully designed furniture piece made for comfortable everyday living. Clean proportions, premium materials and a timeless silhouette make it easy to style in any room.</p>
+              <p style="margin-top:12px"><b>RETURNS AND REFUNDS</b><br>
+              Eligible items can be returned within 30 days. Products should be unused and returned in their original condition and packaging.</p>
+            </div>
+
+            <div class="detail-promo">
+              <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=85" alt="Furniture collection">
+              <div class="detail-promo-copy">
+                <div class="eyebrow">Get in touch</div>
+                <h3>Need help choosing<br>the right piece?</h3>
+                <p>Our furniture specialists are here to help you find the perfect fit for your space.</p>
+                <button class="btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});closeScreen('productScreen')">CONTACT US</button>
+              </div>
+            </div>
+
+            <div class="detail-trust">
+              <div class="detail-trust-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg>
+                <strong>Quality assured</strong><span>Carefully selected materials</span>
+              </div>
+              <div class="detail-trust-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 7h16v12H4zM7 7V4h10v3"/></svg>
+                <strong>Free shipping</strong><span>On orders over $500</span>
+              </div>
+              <div class="detail-trust-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M5 12a7 7 0 1 0 2-5"/><path d="M5 5v6h6"/></svg>
+                <strong>Easy returns</strong><span>30-day return policy</span>
+              </div>
+              <div class="detail-trust-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 3v18M3 12h18"/></svg>
+                <strong>Secure payment</strong><span>Protected checkout</span>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h3>YOUR REVIEW</h3>
+              <div class="detail-review-grid">
+                <form class="review-form" id="reviewForm">
+                  <h4>Tell us what you think</h4>
+                  <div style="font-size:16px;letter-spacing:2px;margin-bottom:12px">★★★★★</div>
+                  <input required placeholder="Your name">
+                  <input required type="email" placeholder="Your email">
+                  <textarea required placeholder="Write your review..."></textarea>
+                  <button type="submit">SUBMIT REVIEW</button>
+                </form>
+                <div class="review-list">
+                  <div class="review"><div class="review-head"><b>Maria P.</b><span class="review-stars">★★★★★</span></div><p>Beautiful sofa and excellent quality. The color is exactly as shown.</p></div>
+                  <div class="review"><div class="review-head"><b>John K.</b><span class="review-stars">★★★★★</span></div><p>Very comfortable and delivery was much faster than expected.</p></div>
+                  <div class="review"><div class="review-head"><b>Grace L.</b><span class="review-stars">★★★★☆</span></div><p>Lovely design and easy to style with the rest of my furniture.</p></div>
+                  <div class="review"><div class="review-head"><b>David R.</b><span class="review-stars">★★★★★</span></div><p>Great craftsmanship. Would definitely buy from NORDHOME again.</p></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h3>FREQUENTLY ASKED QUESTIONS</h3>
+              <div class="faq-list">
+                <div class="faq-item"><button class="faq-question">What payment methods do you accept? <span>+</span></button><div class="faq-answer">We accept major credit and debit cards and cash on delivery where available.</div></div>
+                <div class="faq-item"><button class="faq-question">Do you offer free shipping? <span>+</span></button><div class="faq-answer">Yes. Standard delivery is free for orders over $500.</div></div>
+                <div class="faq-item"><button class="faq-question">How long does delivery take? <span>+</span></button><div class="faq-answer">Standard delivery usually takes 3–7 business days.</div></div>
+                <div class="faq-item"><button class="faq-question">What is your return policy? <span>+</span></button><div class="faq-answer">Eligible products can be returned within 30 days.</div></div>
+                <div class="faq-item"><button class="faq-question">Can I track my order? <span>+</span></button><div class="faq-answer">Yes. Tracking details are sent after your order is dispatched.</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:50px"><div class="eyebrow">Complete the look</div><h2 class="related-title" style="margin-top:5px">Best combined with</h2><p style="font-size:10px;color:#999">Pair your new furniture with these complementary pieces.</p></div>
+      <div class="products" id="relatedProducts"></div>
+    </div>
+  </div>
+
+  <!-- Checkout screen -->
+  <div class="screen-overlay" id="checkoutScreen">
+    <div class="screen-nav">
+      <button class="back" onclick="closeScreen('checkoutScreen')">← BACK</button>
+      <div class="screen-title">CHECKOUT</div>
+      <div style="font-size:10px;color:#888">Secure checkout</div>
+    </div>
+    <div class="checkout-wrap">
+      <div class="checkout-steps">
+        <div class="step active" id="step1">1<br>Information</div>
+        <div class="step" id="step2">2<br>Shipping</div>
+        <div class="step" id="step3">3<br>Payment</div>
+        <div class="step" id="step4">4<br>Complete</div>
+      </div>
+      <div id="checkoutContent"></div>
+    </div>
+  </div>
+
+  <!-- Login / sign up screen -->
+  <div class="screen-overlay" id="accountScreen">
+    <div class="screen-nav"><button class="back" onclick="closeScreen('accountScreen')">← BACK</button><div class="screen-title">NORDHOME</div><div></div></div>
+    <div class="account-wrap">
+      <div class="account-logo">WELCOME BACK</div>
+      <div class="account-sub">Sign in to view your orders and saved items.</div>
+      <div class="account-card">
+        <h2 id="accountTitle">Log in</h2>
+        <form id="accountForm">
+          <div class="field"><label>EMAIL ADDRESS</label><input type="email" required placeholder="you@example.com"></div>
+          <div class="field"><label>PASSWORD</label><input type="password" required placeholder="••••••••"></div>
+          <div class="field" id="nameField" style="display:none"><label>FULL NAME</label><input type="text" placeholder="Your name"></div>
+          <button class="btn" type="submit" id="accountSubmit">LOG IN</button>
+        </form>
+        <div class="switch-account"><span id="switchText">Don't have an account?</span> <button type="button" id="switchAccount">Sign up</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="drawer-backdrop" id="backdrop"></div>
+  <aside class="drawer" id="drawer">
+    <div class="drawer-head"><h3>Your cart</h3><button class="close" id="closeCart">&times;</button></div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="drawer-foot">
+      <div class="total"><span>Total</span><span id="cartTotal">$0.00</span></div>
+      <button class="checkout" id="checkoutBtn">PROCEED TO CHECKOUT</button>
+    </div>
+  </aside>
+
+  <script>
+    const products = [
+      {id:1,name:"Lounge Chair",category:"Chairs",price:289,image:"https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=700&q=85",tag:"Bestseller"},
+      {id:2,name:"Arc Floor Lamp",category:"Lighting",price:179,image:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=700&q=85",tag:"New"},
+      {id:3,name:"Oak Side Table",category:"Tables",price:219,image:"https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?auto=format&fit=crop&w=700&q=85",tag:""},
+      {id:4,name:"Cloud Sofa",category:"Sofas",price:899,image:"https://images.unsplash.com/photo-1549497538-303791108f95?auto=format&fit=crop&w=700&q=85",tag:"Bestseller"},
+      {id:5,name:"Dining Chair",category:"Chairs",price:249,image:"https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?auto=format&fit=crop&w=700&q=85",tag:""},
+      {id:6,name:"Ceramic Table Lamp",category:"Lighting",price:129,image:"https://images.unsplash.com/photo-1540932239986-30128078f3c5?auto=format&fit=crop&w=700&q=85",tag:"New"},
+      {id:7,name:"Linen Armchair",category:"Chairs",price:329,image:"https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=700&q=85",tag:""},
+      {id:8,name:"Marble Coffee Table",category:"Tables",price:459,image:"https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=700&q=85",tag:""},
+      {id:9,name:"Modern Bed",category:"Bedroom",price:749,image:"https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=700&q=85",tag:"Bestseller"},
+      {id:10,name:"Bedside Cabinet",category:"Bedroom",price:199,image:"https://images.unsplash.com/photo-1558997519-83ea9252edf8?auto=format&fit=crop&w=700&q=85",tag:""},
+      {id:11,name:"Bouclé Sofa",category:"Sofas",price:1099,image:"https://images.unsplash.com/photo-1550254478-ead40cc54513?auto=format&fit=crop&w=700&q=85",tag:"New"},
+      {id:12,name:"Minimal Desk",category:"Tables",price:399,image:"https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=700&q=85",tag:""}
+    ];
+
+    const categoryImages = {
+      All: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=300&q=75",
+      Sofas:"https://images.unsplash.com/photo-1549497538-303791108f95?auto=format&fit=crop&w=300&q=75",
+      Chairs:"https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=300&q=75",
+      Tables:"https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?auto=format&fit=crop&w=300&q=75",
+      Lighting:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=300&q=75",
+      Bedroom:"https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=300&q=75"
+    };
+
+    let activeCategory = "All";
+    let searchTerm = "";
+    let cart = JSON.parse(localStorage.getItem("furnitureCart") || "[]");
+
+    const productGrid = document.getElementById("productGrid");
+    const filters = document.getElementById("filters");
+    const categoryGrid = document.getElementById("categoryGrid");
+    const searchInput = document.getElementById("searchInput");
+    const cartCount = document.getElementById("cartCount");
+    const drawer = document.getElementById("drawer");
+    const backdrop = document.getElementById("backdrop");
+    const cartItems = document.getElementById("cartItems");
+    const cartTotal = document.getElementById("cartTotal");
+
+    const categories = ["All","Sofas","Chairs","Tables","Lighting","Bedroom"];
+
+    function money(value){ return "$" + value.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}); }
+
+    function renderCategories(){
+      categoryGrid.innerHTML = categories.map(cat => `
+        <button class="category ${activeCategory===cat?"active":""}" data-category="${cat}">
+          <img src="${categoryImages[cat]}" alt="${cat}">
+          <span>${cat==="All"?"All Furniture":cat}</span>
+        </button>
+      `).join("");
+      categoryGrid.querySelectorAll(".category").forEach(btn=>{
+        btn.addEventListener("click",()=>{
+          activeCategory=btn.dataset.category;
+          renderAll();
+          document.getElementById("shop").scrollIntoView({behavior:"smooth",block:"start"});
+        });
+      });
+    }
+
+    function renderFilters(){
+      filters.innerHTML = categories.map(cat =>
+        `<button class="filter ${activeCategory===cat?"active":""}" data-filter="${cat}">${cat}</button>`
+      ).join("");
+      filters.querySelectorAll(".filter").forEach(btn=>{
+        btn.addEventListener("click",()=>{
+          activeCategory=btn.dataset.filter;
+          renderAll();
+        });
+      });
+    }
+
+    function filteredProducts(){
+      return products.filter(p =>
+        (activeCategory==="All" || p.category===activeCategory) &&
+        p.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    function renderProducts(){
+      const list = filteredProducts();
+      document.getElementById("resultText").textContent =
+        `${list.length} product${list.length!==1?"s":""} found`;
+      if(!list.length){
+        productGrid.innerHTML = `<div class="empty">No products found. Try another search or category.</div>`;
+        return;
+      }
+      productGrid.innerHTML = list.map(p=>`
+        <article class="product-card">
+          <div class="product-image">
+            <img src="${p.image}" alt="${p.name}" loading="lazy">
+            ${p.tag?`<span class="badge">${p.tag}</span>`:""}
+            <button class="quick" title="Add to cart" onclick="addToCart(${p.id})">+</button>
+          </div>
+          <div class="product-info">
+            <small>${p.category}</small>
+            <h3>${p.name}</h3>
+            <div class="price">${money(p.price)}</div>
+            <button class="add" onclick="openProduct(${p.id})">VIEW PRODUCT</button><button class="add" onclick="addToCart(${p.id})">ADD TO CART</button>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function saveCart(){ localStorage.setItem("furnitureCart",JSON.stringify(cart)); }
+
+    function addToCart(id){
+      const existing = cart.find(item=>item.id===id);
+      if(existing) existing.qty++;
+      else cart.push({id,qty:1});
+      saveCart(); updateCartUI(); updateDetailCartCount(); openCart();
+    }
+
+    function changeQty(id,delta){
+      const item=cart.find(i=>i.id===id);
+      if(!item) return;
+      item.qty += delta;
+      if(item.qty<=0) cart=cart.filter(i=>i.id!==id);
+      saveCart(); updateCartUI(); updateDetailCartCount();
+    }
+
+    function removeItem(id){
+      cart=cart.filter(i=>i.id!==id);
+      saveCart(); updateCartUI();
+    }
+
+    function updateCartUI(){
+      const count=cart.reduce((sum,item)=>sum+item.qty,0);
+      cartCount.textContent=count;
+      if(!cart.length){
+        cartItems.innerHTML=`<div class="empty">Your cart is empty.</div>`;
+        cartTotal.textContent="$0.00";
+        return;
+      }
+      let total=0;
+      cartItems.innerHTML=cart.map(item=>{
+        const p=products.find(x=>x.id===item.id);
+        total += p.price*item.qty;
+        return `
+          <div class="cart-item">
+            <img src="${p.image}" alt="${p.name}">
+            <div>
+              <h4>${p.name}</h4>
+              <p>${money(p.price)}</p>
+              <div class="qty">
+                <button onclick="changeQty(${p.id},-1)">−</button>
+                <span>${item.qty}</span>
+                <button onclick="changeQty(${p.id},1)">+</button>
+              </div>
+            </div>
+            <button class="remove" onclick="removeItem(${p.id})">Remove</button>
+          </div>
+        `;
+      }).join("");
+      cartTotal.textContent=money(total);
+    }
+
+    function openCart(){drawer.classList.add("open");backdrop.classList.add("open")}
+    function closeCart(){drawer.classList.remove("open");backdrop.classList.remove("open")}
+
+    function renderAll(){renderCategories();renderFilters();renderProducts();}
+
+    searchInput.addEventListener("input",e=>{
+      searchTerm=e.target.value.trim();
+      renderProducts();
+    });
+
+    document.getElementById("searchFocus").addEventListener("click",()=>{
+      document.getElementById("shop").scrollIntoView({behavior:"smooth"});
+      setTimeout(()=>searchInput.focus(),450);
+    });
+    document.getElementById("cartBtn").addEventListener("click",openCart);
+    document.getElementById("closeCart").addEventListener("click",closeCart);
+    backdrop.addEventListener("click",closeCart);
+    document.getElementById("checkoutBtn").addEventListener("click",()=>{
+      if(!cart.length){alert("Your cart is empty.");return;}
+      closeCart(); openCheckout();
+    });
+    document.getElementById("subscribeForm").addEventListener("submit",e=>{
+      e.preventDefault();
+      alert("Thank you for subscribing!");
+      e.target.reset();
+    });
+    document.getElementById("menuBtn").addEventListener("click",()=>{
+      const links=document.querySelector(".navlinks");
+      const visible=links.style.display==="flex";
+      links.style.display=visible?"":"flex";
+      if(!visible){
+        links.style.position="absolute";links.style.top="62px";links.style.left="0";links.style.right="0";
+        links.style.background="#fff";links.style.padding="18px 20px";links.style.flexDirection="column";
+        links.style.borderBottom="1px solid #eee";links.style.zIndex="55";
+      }
+    });
+
+    updateCartUI();
+    renderAll();
+
+    let detailProductId = null;
+    let detailQty = 1;
+    let checkoutStep = 1;
+
+    function openScreen(id){document.getElementById(id).classList.add("show");document.body.style.overflow="hidden"}
+    function closeScreen(id){document.getElementById(id).classList.remove("show");document.body.style.overflow=""}
+
+    function openProduct(id){
+      const p=products.find(x=>x.id===id);
+      if(!p)return;
+      detailProductId=id;detailQty=1;
+      document.getElementById("detailImage").src=p.image;
+      document.getElementById("detailImage").alt=p.name;
+      document.getElementById("detailName").textContent=p.name;
+      document.getElementById("detailCategory").textContent=p.category;
+      document.getElementById("detailCrumb").textContent=p.name;
+      document.getElementById("detailPrice").textContent=money(p.price);
+      document.getElementById("detailQty").textContent="1";
+      const related=products.filter(x=>x.id!==id).slice(0,4);
+      document.getElementById("relatedProducts").innerHTML=related.map(p=>`
+        <article class="product-card">
+          <div class="product-image"><img src="${p.image}" alt="${p.name}"><span class="badge">${p.category}</span></div>
+          <div class="product-info"><small>${p.category}</small><h3>${p.name}</h3><div class="price">${money(p.price)}</div>
+          <button class="add" onclick="openProduct(${p.id})">VIEW PRODUCT</button></div>
+        </article>`).join("");
+      updateDetailCartCount();openScreen("productScreen");window.scrollTo(0,0);
+    }
+
+    function updateDetailCartCount(){
+      const el=document.getElementById("detailCartCount");
+      if(el)el.textContent=cart.reduce((s,i)=>s+i.qty,0);
+    }
+
+    function addDetailToCart(){
+      for(let i=0;i<detailQty;i++)addToCart(detailProductId);
+      closeScreen("productScreen");
+    }
+
+    function openCheckout(){
+      checkoutStep=1;renderCheckout();openScreen("checkoutScreen");window.scrollTo(0,0);
+    }
+
+    function checkoutTotals(){
+      let subtotal=0;
+      cart.forEach(i=>{const p=products.find(x=>x.id===i.id);subtotal+=p.price*i.qty});
+      return {subtotal,shipping:subtotal>=500?0:35,total:subtotal+(subtotal>=500?0:35)};
+    }
+
+    function renderCheckout(){
+      for(let i=1;i<=4;i++)document.getElementById("step"+i).classList.toggle("active",i<=checkoutStep);
+      const t=checkoutTotals();
+      if(checkoutStep===1){
+        document.getElementById("checkoutContent").innerHTML=`
+          <div class="checkout-grid">
+            <div class="checkout-card"><h2>Contact information</h2>
+              <div class="field"><label>EMAIL ADDRESS</label><input id="coEmail" type="email" placeholder="you@example.com" required></div>
+              <label style="font-size:11px;color:#777"><input type="checkbox"> Email me with news and offers</label>
+              <h2 style="margin-top:30px">Shipping address</h2>
+              <div class="field-grid">
+                <div class="field"><label>FIRST NAME</label><input placeholder="First name"></div>
+                <div class="field"><label>LAST NAME</label><input placeholder="Last name"></div>
+                <div class="field full"><label>ADDRESS</label><input placeholder="Street address"></div>
+                <div class="field"><label>CITY</label><input placeholder="City"></div>
+                <div class="field"><label>POSTAL CODE</label><input placeholder="Postal code"></div>
+              </div>
+              <button class="checkout-next" onclick="checkoutStep=2;renderCheckout()">CONTINUE TO SHIPPING</button>
+            </div>${orderSummaryHTML(t)}
+          </div>`;
+      } else if(checkoutStep===2){
+        document.getElementById("checkoutContent").innerHTML=`
+          <div class="checkout-grid">
+            <div class="checkout-card"><h2>Shipping method</h2>
+              <div class="pay-option active"><input type="radio" checked> <div><b>Standard delivery</b><br><span style="color:#888">3–7 business days · ${t.shipping?money(t.shipping):"FREE"}</span></div></div>
+              <div class="pay-option"><input type="radio"> <div><b>Express delivery</b><br><span style="color:#888">1–2 business days · $75</span></div></div>
+              <button class="checkout-next" onclick="checkoutStep=3;renderCheckout()">CONTINUE TO PAYMENT</button>
+            </div>${orderSummaryHTML(t)}
+          </div>`;
+      } else if(checkoutStep===3){
+        document.getElementById("checkoutContent").innerHTML=`
+          <div class="checkout-grid">
+            <div class="checkout-card"><h2>Payment method</h2>
+              <div class="pay-option active"><input type="radio" checked> Credit / Debit Card</div>
+              <div class="field"><label>CARD NUMBER</label><input placeholder="1234 5678 9012 3456" maxlength="19"></div>
+              <div class="field-grid"><div class="field"><label>EXPIRY</label><input placeholder="MM / YY"></div><div class="field"><label>CVV</label><input placeholder="123"></div></div>
+              <div class="pay-option"><input type="radio"> Cash on delivery</div>
+              <button class="checkout-next" onclick="placeOrder()">PLACE ORDER · ${money(t.total)}</button>
+            </div>${orderSummaryHTML(t)}
+          </div>`;
+      } else {
+        document.getElementById("checkoutContent").innerHTML=`
+          <div class="success"><div class="success-icon">✓</div><h1>Order confirmed!</h1>
+          <p>Thank you for shopping with NORDHOME. Your order has been placed successfully. A confirmation email will be sent shortly.</p>
+          <button class="btn" onclick="closeScreen('checkoutScreen');window.location.hash='shop'">CONTINUE SHOPPING</button></div>`;
+      }
+    }
+
+    function orderSummaryHTML(t){
+      return `<div class="checkout-card"><h2>Order summary</h2>${cart.map(i=>{const p=products.find(x=>x.id===i.id);return `<div class="order-item"><img src="${p.image}"><div><b>${p.name}</b><br><span style="color:#888">Qty ${i.qty}</span></div><strong>${money(p.price*i.qty)}</strong></div>`}).join("")}
+      <div style="margin-top:15px"><div class="summary-line"><span>Subtotal</span><span>${money(t.subtotal)}</span></div><div class="summary-line"><span>Shipping</span><span>${t.shipping?money(t.shipping):"FREE"}</span></div><div class="summary-line summary-total"><span>Total</span><span>${money(t.total)}</span></div></div></div>`;
+    }
+
+    function placeOrder(){
+      cart=[];saveCart();updateCartUI();checkoutStep=4;renderCheckout();
+    }
+
+    document.querySelectorAll(".swatch").forEach(btn=>btn.addEventListener("click",()=>{
+      document.querySelectorAll(".swatch").forEach(x=>x.classList.remove("active"));btn.classList.add("active");
+    }));
+
+    document.getElementById("accountForm").addEventListener("submit",e=>{
+      e.preventDefault();
+      const title=document.getElementById("accountTitle").textContent;
+      alert(title==="Sign up" ? "Account created successfully!" : "Logged in successfully!");
+    });
+    document.getElementById("switchAccount").addEventListener("click",()=>{
+      const signup=document.getElementById("accountTitle").textContent==="Sign up";
+      document.getElementById("accountTitle").textContent=signup?"Log in":"Sign up";
+      document.getElementById("accountSubmit").textContent=signup?"LOG IN":"CREATE ACCOUNT";
+      document.getElementById("nameField").style.display=signup?"none":"block";
+      document.getElementById("switchText").textContent=signup?"Don't have an account?":"Already have an account?";
+      document.getElementById("switchAccount").textContent=signup?"Sign up":"Log in";
+    });
+
+
+    document.addEventListener("click",e=>{
+      const q=e.target.closest(".faq-question");
+      if(q){
+        const item=q.closest(".faq-item");
+        item.classList.toggle("open");
+        q.querySelector("span").textContent=item.classList.contains("open")?"−":"+";
+      }
+    });
+    document.addEventListener("submit",e=>{
+      if(e.target.id==="reviewForm"){
+        e.preventDefault();
+        alert("Thank you! Your review has been submitted.");
+        e.target.reset();
+      }
+    });
+    window.openAccount=()=>openScreen("accountScreen");
+
+  </script>
+</body>
+</html>
